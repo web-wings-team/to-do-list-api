@@ -57,11 +57,11 @@ function getSlicesHandler(req, res) {
 
 async function addSliceHandler(req, res) {
   console.log(req.body);
-  let { title, description, status, email } = req.body; //Destructuring assignment .
+  let { title, description, status, email } = req.body; 
  
   await sliceModel.create({ title, description, status, email });
   // await sliceModel.create(req.body)
-  getSlicesHandler(req, res); // send data tso frontEnd......
+  getSlicesHandler(req, res); 
 }
 
 
@@ -69,23 +69,13 @@ async function addSliceHandler(req, res) {
 
 async function deletSliceHandler(req, res) {
   console.log("inside deletSliceHandler func");
-
-  let emailOwner = req.query.email;
-
   let sliceId = req.params.sliceId;
   sliceModel.remove({ _id: sliceId }, (error, deletedSlice) => {
     if (error) {
       console.log("error in deleteing the data");
     } else {
       console.log("data deleted", deletedSlice);
-      sliceModel.find({ email: emailOwner }, function (err, data) {
-        if (err) {
-          console.log("error in getting the data");
-        } else {
-          console.log(data);
-          res.send(data);
-        }
-      });
+      getSlicesHandler(req, res); 
     }
   });
 }
