@@ -8,14 +8,12 @@ const server = express();
 const PORT = process.env.PORT;
 server.use(cors());
 server.use(express.json());
-
+const getDataWeather =require("./data/weather");
+const getDataMovies =require("./data/movies");
 
 
 // const mongoVar= process.env.MONGO_LINK  ;
-mongoose.connect(`${process.env.DB_LINK}`, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(`${process.env.DB_LINK}`, {useNewUrlParser: true, useUnifiedTopology: true,});
 
 
 const sliceSchema = require("./model/sliceSchema.js");
@@ -27,6 +25,16 @@ server.get("/getSlice", getSlicesHandler);
 server.post("/addSlice", addSliceHandler);
 server.delete("/deletSlice/:sliceId", deletSliceHandler);
 server.put("/updateSlice/:sliceId", updateSliceHandler);
+// ***********************************************************************************************************************************
+// localhost:3002/weather?lon=-122.3300624&lat=47.6038321&cityName=amman
+server.get('/weather', getDataWeather);
+server.get('/movies', getDataMovies);
+
+
+
+
+
+
 
 function testHandler(req, res) {
   res.send("all is GOOD");
@@ -91,10 +99,7 @@ async function updateSliceHandler(req, res) {
   let { title, description, status, email } = req.body;
   console.log(req.body);
   sliceModel.findByIdAndUpdate(
-    sliceId,
-    { title, description, status, email },
-    (error, updatedData) => {
-      //updatedData
+    sliceId,{ title, description, status, email },(error, updatedData) => {
       if (error) {
         console.log("error in updating the data");
       } else {

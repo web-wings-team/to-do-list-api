@@ -6,8 +6,8 @@ module.exports = getDataWeather;
 let weatherDataInMem = {};
 
 
-
 function getDataWeather(req, res) {
+    
     let cityLonQ = Number(req.query.lon);
     let cityLatQ = Number(req.query.lat);
     let cityKey=`lon${cityLonQ}lat${cityLatQ}`
@@ -35,7 +35,8 @@ function getDataWeather(req, res) {
 class CityWeather {
     constructor(elem) {
         this.date = elem.valid_date;
-        this.descreption = `Low of ${elem.low_temp}, high of ${elem.max_temp} with ${elem.weather.description}`
+        this.descreption = `Low of ${elem.low_temp}, high of ${elem.max_temp} with ${elem.weather.description}`;
+        this.full=elem;
     }
 }
 
@@ -46,8 +47,10 @@ function getDAta (cityKey,cityLonQ,cityLatQ,res){
     console.log(' cache miss , send req to weatherbit API');
     try {
         axios.get(weatherUrl).then((weatherData) => {
-        
+            console.log(weatherData.data);
+        // let x =weatherData.data.country_code;
             let weaArr = weatherData.data.data.map((elem) => {
+                
                 return new CityWeather(elem);
             })
             weatherDataInMem[cityKey]={data:weaArr,time:Date.now()};
