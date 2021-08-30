@@ -8,8 +8,8 @@ const server = express();
 const PORT = process.env.PORT;
 server.use(cors());
 server.use(express.json());
-const getDataWeather =require("./data/weather");
-const getDataMovies =require("./data/movies");
+const getDataWeather =require("./modules/weather");
+const getDataMovies =require("./modules/movies");
 
 
 // const mongoVar= process.env.MONGO_LINK  ;
@@ -31,20 +31,11 @@ server.get('/weather', getDataWeather);
 server.get('/movies', getDataMovies);
 
 
-
-
-
-
-
 function testHandler(req, res) {
   res.send("all is GOOD");
 }
 
-
-
-
 // localhost:3001/getSlice?emailName=
-
 function getSlicesHandler(req, res) {
   console.log("inside getSliceHandler func");
   let emailName2 = req.query.email;
@@ -57,10 +48,6 @@ function getSlicesHandler(req, res) {
     }
   });
 }
-
-
-
-
 // localhost:3001/addBook,{ }...
 
 async function addSliceHandler(req, res) {
@@ -71,8 +58,6 @@ async function addSliceHandler(req, res) {
   // await sliceModel.create(req.body)
   getSlicesHandler(req, res); 
 }
-
-
 // localhost:3001/deletSlice/:sliceId
 
 async function deletSliceHandler(req, res) {
@@ -87,10 +72,6 @@ async function deletSliceHandler(req, res) {
     }
   });
 }
-
-
-
-
 // localhost:3001/updateSlice/:sliceId
 
 async function updateSliceHandler(req, res) {
