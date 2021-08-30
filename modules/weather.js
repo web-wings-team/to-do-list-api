@@ -28,10 +28,7 @@ function getDataWeather(req, res) {
     }
 }
 
-
-
 // ***********************************************************************************************************************************
-
 class CityWeather {
     constructor(elem) {
         this.date = elem.valid_date;
@@ -39,8 +36,6 @@ class CityWeather {
         this.full=elem;
     }
 }
-
-
 // ***********************************************************************************************************************************
 function getDAta (cityKey,cityLonQ,cityLatQ,res){
     let weatherUrl = `https://api.weatherbit.io/v2.0/forecast/daily?key=${process.env.WEATHER_API_KEY}&lat=${cityLatQ}&lon=${cityLonQ}&days=${5}`
