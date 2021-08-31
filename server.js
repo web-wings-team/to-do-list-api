@@ -30,7 +30,7 @@ server.post("/addSlice", addSliceHandler);
 server.delete("/deletSlice/:sliceId", deletSliceHandler);
 server.put("/updateSlice/:sliceId", updateSliceHandler);
 // ***********************************************************************************************************************************
-// localhost:3002/weather?lon=-122.3300624&lat=47.6038321&cityName=amman
+// localhost:3002/weather?cityName=amman
 server.get('/weather', getDataWeather);
 server.get('/movies', getDataMovies);
 server.get('/event', getDataEvent);
@@ -50,7 +50,7 @@ function getSlicesHandler(req, res) {
   console.log("inside getSliceHandler func");
    let email = req.query.email;
   let date = req.query.date;
-  sliceModel.find({ $and: { email,date } }, function (err, sliceData) {
+  sliceModel.find({ $and: [{ email},{date }] }, function (err, sliceData) {
     if (err) {
       console.log("error in getting the data");
     } else {
@@ -62,9 +62,9 @@ function getSlicesHandler(req, res) {
 // localhost:3001/addSlice,{ }...
 async function addSliceHandler(req, res) {
   console.log(req.body);
-  let { title, description, date, email } = req.body; 
+  let { title, description, date, email ,holiday} = req.body; 
  
-  await sliceModel.create({ title, description, date, email });
+  await sliceModel.create({ title, description, date, email ,holiday});
   // await sliceModel.create(req.body)
   sliceModel.find({ $and: [{ email }, { date }] }, function (err, sliceData) {
     if (err) {
@@ -117,7 +117,7 @@ async function updateSliceHandler(req, res) {
   );
 }
 function getContryHandler(req, res) {
-  console.log("inside getSliceHandler func");
+  console.log("inside getCountryHandler func");
   let emailName2 = req.query.email;
   contryModel.find({ email: emailName2 }, function (err, contryData) {
     if (err) {
@@ -129,10 +129,11 @@ function getContryHandler(req, res) {
   });
 }
 async function addContryHandler(req, res) {
+  console.log("jnhvfjkdfnvkjdfn");
   console.log(req.body);
-  let { contry, email } = req.body; 
+  let { countryName, email,countryCode,userName } = req.body; 
  
-  await contryModel.create({ contry, email });
+  await contryModel.create({ countryName, email,countryCode ,userName});
   // await sliceModel.create(req.body)
   getContryHandler(req, res); 
 }

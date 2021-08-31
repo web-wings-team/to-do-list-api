@@ -3,9 +3,10 @@
 const mongoose = require("mongoose");
 
 const contrySchema = new mongoose.Schema({
-  contry: String,
-  contryCode:String,
+  countryName: String,
+  countryCode:String,
   email: String,
+  userName:String,
 })
 
 module.exports = contrySchema; 

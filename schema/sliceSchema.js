@@ -7,6 +7,8 @@ const sliceSchema = new mongoose.Schema({
   description: String,
   status: String,
   email: String,
+  date:String,
+  holiday:String,
 })
 
 module.exports = sliceSchema; 
