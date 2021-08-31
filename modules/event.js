@@ -4,8 +4,10 @@ module.exports = getDataEvent;
 
 let eventDataInMem = {};
 
-
+// http://localhost:3002/event?contryCode=&date=
 function getDataEvent (req, res) {
+
+    console.log("aaaaaaaaaaaaaaaaaaaa");
     let contryCode =req.query.contryCode;
     let date=req.query.date;
     let year=date.split('-')[0]-1;
@@ -32,7 +34,7 @@ else{
                 return new Event(elem);
             })
         }else{
-            eventArr.push("no holiday in this day")
+        eventArr.push({nameOfEvent:"no holiday in this day"})
         }
             eventDataInMem[key]=eventArr;
             res.status(200).send(eventArr) 
