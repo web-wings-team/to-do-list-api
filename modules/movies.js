@@ -5,28 +5,28 @@ module.exports = getDataMovies;
 let moviesDataInMem = {};
 
 
-function getDataMovies (req, res) {
-    console.log(req.query.cityName);
-    let cityName =req.query.cityName;
+async function getDataMovies (req, res) {
+    console.log(req.query.cityCode);
+    let cityCode =req.query.cityCode;
 
     
 
-    if (moviesDataInMem[cityName] !== undefined) {
+    if (moviesDataInMem[cityCode] !== undefined) {
         console.log(' cache hit , data in cache memory');
-        res.send(moviesDataInMem[cityName]);
+        res.send(moviesDataInMem[cityCode]);
     }
 
 
 else{
-        let movieUrl = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${cityName}&include_adult=false`
+        let movieUrl =`https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=whiplash&language=${cityCode}-${cityCode}&region=${cityCode}`;
     try {
-        axios.get(movieUrl).then((movieData) => {
+     await axios.get(movieUrl).then((movieData) => {
             console.log(movieData);
 
             let weaArr = movieData.data.results.map((elem) => {
                 return new Movie(elem);
             })
-            moviesDataInMem[cityName]=weaArr;
+            moviesDataInMem[cityCode]=weaArr;
             res.status(200).send(weaArr) 
         })
 
