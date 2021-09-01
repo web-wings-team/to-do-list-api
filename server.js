@@ -139,11 +139,10 @@ async function addContryHandler(req, res) {
 }
 async function updateContryHandler(req, res) {
   console.log("inside updateSliceHandler func");
-  let sliceId = req.params.sliceId;
-  let { title, description, date, email } = req.body;
+  let ContryId = req.params.ContryId;
+  let { countryName, userName, countryCode, email } = req.body;
   console.log(req.body);
-  contryModel.findByIdAndUpdate(
-    sliceId,{ title, description, date, email },(error, updatedData) => {
+  contryModel.findByIdAndUpdate(ContryId,{ countryName, userName, countryCode, email },(error, updatedData) => {
       if (error) {
         console.log("error in updating the data");
       } else {
