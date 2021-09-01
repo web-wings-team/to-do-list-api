@@ -19,7 +19,6 @@ mongoose.connect(`${process.env.DB_LINK}`, {useNewUrlParser: true, useUnifiedTop
 
 const sliceSchema = require("./schema/sliceSchema.js");
 const sliceModel = mongoose.model("slice", sliceSchema);
-
 const contrySchema = require("./schema/contrySchema");
 const contryModel = mongoose.model("contry", contrySchema);
 
